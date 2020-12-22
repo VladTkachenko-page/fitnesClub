@@ -29,7 +29,9 @@ const sendForm = () => {
   const successSend = form => {
       statusMessage.textContent = successMessage;
       form.forEach(item => {
+          item.classList.remove('success');
           item.value = '';
+          item.checked = false;
       });
   };
   const openThanks = () => {

@@ -50,8 +50,6 @@ class Validator {
         }
         if (this.checkbox[0].checked) {
             this.buttonForm.disabled = false;
-            this.showSuccess(target);
-            this.error.delete(target);
         } else {
             this.buttonForm.disabled = true;
             if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {

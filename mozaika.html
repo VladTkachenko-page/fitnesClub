@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css">
 
     <link rel="stylesheet" href="css/style.min.css">
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <!-- <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script> -->
 </head>
 <body>
 <header class="header-main">
@@ -419,10 +419,10 @@
         </div>
     </div>
 </section>
-<section id="map">
+<!-- <section id="map">
     <script type="text/javascript" charset="utf-8" async
             src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A6f8a0936ac643a17a18a807cb2df7581cdaeec98a82d6c322badda5427067a3b&amp;width=100%25&amp;height=500&amp;lang=ru_RU&amp;scroll=false"></script>
-</section>
+</section> -->
 <footer id="footer">
     <div class="wrapper">
         <div class="footer-top">
@@ -516,7 +516,7 @@
                 <h4>Обратный звонок</h4>
                 <input type="hidden" name="form_name" value=" Обратный звонок">
                 <!--  <input type="hidden" name="club" value="<?=$_GET['club-name']?>"> -->
-                <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
+                <p class="input-text"><input name="name" type="text" id="form1-name" required placeholder="Ваше имя..."></p>
                 <p class="input-text"><input type="tel" name="phone" id="callback_form1-phone" required
                                              placeholder="Ваш номер телефона..."></p>
                 <p class="personal-data">
@@ -541,7 +541,7 @@
             <form name="free-visit-form" id="form2" action="#" method="post">
                 <h4>Записаться на визит</h4>
                 <input type="hidden" name="form_name" value=" Записаться на визит">
-                <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
+                <p class="input-text"><input name="name" type="text" id="form2-name" required placeholder="Ваше имя..."></p>
                 <p class="input-text"><input type="tel" name="phone" id="callback_form2-phone" required
                                              placeholder="Ваш номер телефона..."></p>
                 <p class="personal-data">
@@ -570,6 +570,57 @@
     </div>
 </div>
 
+<script src="dist/main.js"></script>
+<script src="src/validator.js"></script>
+<script>
+	const validForm1 = new Validator({
+		selector: '#form1',
+		pattern: { name: /[а-яё]/i},
+		method: {
+			'form1-name': [
+				['notEmpty'],
+				['pattern', 'name']
+			],
+			'callback_form1-phone': [
+				['notEmpty'],
+				['pattern', 'phone']
+			],
+		}
+	});
+	const validForm2 = new Validator({
+		selector: '#form2',
+		pattern: { name: /[а-яё ]/i},
+		method: {
+			'form2-name': [
+				['notEmpty'],
+				['pattern', 'name']
+			],
+			'callback_form2-phone': [
+				['notEmpty'],
+				['pattern', 'phone']
+			]
+		}
 
+    });
+    const validBannerForm = new Validator({
+		selector: '#banner-form',
+		pattern: { name: /[а-яё ]/i},
+		method: {
+			'banner-name': [
+				['notEmpty'],
+				['pattern', 'name']
+			],
+			'phone': [
+				['notEmpty'],
+				['pattern', 'phone']
+			]
+		}
+
+	});
+
+	validForm1.init();
+    validForm2.init();
+    validBannerForm.init();
+</script>
 </body>
 </html>
