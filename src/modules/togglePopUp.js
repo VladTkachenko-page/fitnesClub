@@ -13,47 +13,37 @@ const togglePopUp = () => {
     popUpClose(popUpId);
     
   }
-
+  
   const popUpClose = popup => {
     popup.addEventListener('click', event => {
       let target = event.target;
       const inputPopUp = popup.querySelectorAll('input'),
         error = popup.querySelectorAll('.validator-error'),
         error2 = popup.querySelector('.validator-error2');
+      const clearInput = () => {
+          inputPopUp.forEach(item => {
+            item.classList.remove('success');
+            item.classList.remove('error');
+            item.value = '';
+            item.checked = false;
+        });
+          if(error !== null) {
+            error.forEach(item => {
+              item.remove();
+          });
+          }
+          if (error2 !== null) {
+            error2.remove();
+          }
+        }  
       if (target.classList.contains('close-form') || target.classList.contains('close-btn')) {
         popup.style.display = 'none';
-        inputPopUp.forEach(item => {
-          item.classList.remove('success');
-          item.classList.remove('error');
-          item.value = '';
-          item.checked = false;
-      });
-        if(error !== null) {
-          error.forEach(item => {
-            item.remove();
-        });
-        }
-        if (error2 !== null) {
-          error2.remove();
-        }
+        clearInput();
       } else {
           target = target.closest('.form-content');
           if (!target) {
             popup.style.display = 'none';
-            inputPopUp.forEach(item => {
-              item.classList.remove('success');
-              item.classList.remove('error');
-              item.value = '';
-              item.checked = false;
-            });
-            if(error !== null) {
-              error.forEach(item => {
-                item.remove();
-            });
-            }
-            if (error2 !== null) {
-              error2.remove();
-            }
+            clearInput();
           }
       }
   });
