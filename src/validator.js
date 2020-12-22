@@ -54,9 +54,12 @@ class Validator {
             this.error.delete(target);
         } else {
             this.buttonForm.disabled = true;
+            if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {
+                return;
+            }
             const errorDiv = document.createElement('div');
             errorDiv.textContent = 'Подтвердите согласие на отправку';
-            errorDiv.classList.add('validator-error');
+            errorDiv.classList.add('validator-error2');
             this.form.querySelector('.personal-data').insertAdjacentElement('afterend', errorDiv);
         }
         if (this.error.size > 0) {
@@ -72,6 +75,7 @@ class Validator {
         if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
             return;
         }
+        
         const errorDiv = document.createElement('div');
         errorDiv.textContent = 'Ошибка в этом поле';
         errorDiv.classList.add('validator-error');
@@ -84,7 +88,7 @@ class Validator {
         if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
             elem.nextElementSibling.remove();
         }
-        if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error')) {
+        if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {
             this.form.querySelector('.personal-data').nextElementSibling.remove();
         }
     }
@@ -103,7 +107,14 @@ class Validator {
               font-family: sans-serif;
               color: red;
             }
-          
+          .validator-error2 {
+              font-size: 12px;
+              font-family: sans-serif;
+              color: red;
+            }
+          #banner-form .validator-error {
+              display: none;
+          }
         `;
         document.head.appendChild(style);
     }
