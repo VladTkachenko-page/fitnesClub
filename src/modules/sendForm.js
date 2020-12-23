@@ -4,10 +4,14 @@ const sendForm = () => {
   const form1 = document.getElementById('form1'),
       form2 = document.getElementById('form2'),
       bannerForm = document.getElementById('banner-form'),
+      cardOrder = document.getElementById('card_order'),
+      footerForm = document.getElementById('footer_form'),
       statusMessage = document.createElement('div'),
       inputForm1 = form1.querySelectorAll('input'),
       inputForm2 = form2.querySelectorAll('input'),
       inputBannerForm = bannerForm.querySelectorAll('input'),
+      inputCardOrder = cardOrder.querySelectorAll('input'),
+      inputFooterForm = footerForm.querySelectorAll('input'),
       inputAll = document.querySelectorAll('input');
   statusMessage.style.color = '#fff';
 
@@ -30,8 +34,12 @@ const sendForm = () => {
       statusMessage.textContent = successMessage;
       form.forEach(item => {
           item.classList.remove('success');
-          item.value = '';
-          item.checked = false;
+          if (item.getAttribute('type') !== 'radio') {
+            item.value = '';
+            }
+          if (item.getAttribute('type') === 'checkbox') {
+              item.checked = false;
+          }
       });
   };
   const openThanks = () => {
@@ -115,6 +123,44 @@ const sendForm = () => {
                 throw new Error('status network not 200');
             }
             successSend(inputBannerForm);
+            successPopUpSend();
+        })
+        .catch(errorPopUpSend);
+});
+cardOrder.addEventListener('submit', event => {
+    event.preventDefault();
+    openThanks();
+    document.getElementById('thanks').getElementsByTagName('p')[0].textContent = 'Идет отправка...';
+    const formData = new FormData(cardOrder);
+    const body = {};
+    formData.forEach((key, val) => {
+        body[key] = val;
+    });
+    postData(body)
+        .then(response => {
+            if (response.status !== 200) {
+                throw new Error('status network not 200');
+            }
+            successSend(inputCardOrder);
+            successPopUpSend();
+        })
+        .catch(errorPopUpSend);
+});
+footerForm.addEventListener('submit', event => {
+    event.preventDefault();
+    openThanks();
+    document.getElementById('thanks').getElementsByTagName('p')[0].textContent = 'Идет отправка...';
+    const formData = new FormData(footerForm);
+    const body = {};
+    formData.forEach((key, val) => {
+        body[key] = val;
+    });
+    postData(body)
+        .then(response => {
+            if (response.status !== 200) {
+                throw new Error('status network not 200');
+            }
+            successSend(inputFooterForm);
             successPopUpSend();
         })
         .catch(errorPopUpSend);

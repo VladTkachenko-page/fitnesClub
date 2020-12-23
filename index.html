@@ -277,7 +277,7 @@
     <div class="gallery-bg">
         <div class="wrapper">
             <div class="gallery-slider">
-                <div class="slide">
+                <div class="slide slide-active">
                     <img src="images/gallery/photo1.jpg" alt="">
                 </div>
                 <div class="slide">
@@ -292,6 +292,11 @@
                 <div class="slide">
                     <img src="images/gallery/photo5.jpg" alt="">
                 </div>
+                <div class="slider-arrow prev"><span id="arrow-left"><</span></div>
+                <div class="slider-arrow next"><span id="arrow-right">></span></div>
+                <ul class="slider-dots">
+
+                </ul>
             </div>
         </div>
     </div>
@@ -331,13 +336,13 @@
                     </label>
                     </div>
                     <div class="price">
-                        <div class="price-message input-text"><input name="name" type="text" required
+                        <div class="price-message input-text"><input name="name" type="text" 
                                                                      placeholder="Промокод"></div>
                         <div class="price-message">Цена:</div>
                         <div class="price-message" id="price-total">2999</div>
                     </div>
                     <input type="hidden" name="form_name" value="Заказать карту">
-                    <p class="input-text"><input name="name" type="text" required placeholder="Ваше имя..."></p>
+                    <p class="input-text"><input name="name" type="text" id="card-name" required placeholder="Ваше имя..."></p>
                     <p class="input-text"><input type="tel" name="phone" id="callback_form-phone" required
                                                  placeholder="Ваш номер телефона..."></p>
                     <p class="personal-data">
@@ -380,8 +385,8 @@
                         <div class="choose-club">
                             <h5>Выбрать клуб</h5>
                             <div class="club">
-                                <input type="radio" id="footer_leto_mozaika" name="club-name" value="mozaika"><label
-                                    for="footer_leto_mozaika">
+                                <input type="radio" id="footer_leto_mozaika" name="club-name" value="mozaika" checked><label
+                                    for="footer_leto_mozaika" >
                                 <h6>Тело «Мозаика»</h6>
                                 <p>Россия, Москва, 7-я Кожуховская ул.,&nbsp;9</p>
                             </label>
@@ -400,7 +405,7 @@
                             <p class="input-text"><input type="tel" name="phone" id="callback_footer_form-phone"
                                                          required="" placeholder="Ваш номер телефона..."></p>
 
-                            <button class="btn callback-btn" type="submit" data-popup="#callback_form">Перезвоните мне
+                            <button class="btn callback-btn" type="submit">Перезвоните мне
                             </button>
                         </div>
                     </div>
@@ -559,11 +564,39 @@
 			]
 		}
 
+    });
+    const validCardOrder = new Validator({
+		selector: '#card_order',
+		pattern: { name: /[а-яё ]/i},
+		method: {
+			'card-name': [
+				['notEmpty'],
+				['pattern', 'name']
+			],
+			'callback_form-phone': [
+				['notEmpty'],
+				['pattern', 'phone']
+			]
+		}
+
+    });
+    const validFooterForm = new Validator({
+		selector: '#footer_form',
+		pattern: { name: /[а-яё ]/i},
+		method: {
+			'callback_footer_form-phone': [
+				['notEmpty'],
+				['pattern', 'phone']
+			]
+		}
+
 	});
 
 	validForm1.init();
     validForm2.init();
     validBannerForm.init();
+    validCardOrder.init();
+    validFooterForm.init();
 </script>
 </body>
 </html>

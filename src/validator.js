@@ -5,10 +5,14 @@ class Validator {
         this.method = method;
         this.elementsForm = [...this.form.elements].filter(item => item.tagName.toLowerCase() !== 'button' && item.type !== 'button');
         this.buttonForm = this.form.querySelector('.btn');
-        this.checkbox = this.form.querySelector('.personal-data').getElementsByTagName('input');
+        this.personalData = this.form.querySelector('.personal-data');
+        if (this.personalData) {
+            this.checkbox = this.personalData.getElementsByTagName('input');
+        }
         this.error = new Set();
     }
     init() {
+        
         this.applyStyle();
         this.setPattern();
         this.elementsForm.forEach(elem => elem.addEventListener('change', this.chekIt.bind(this)));
@@ -48,17 +52,20 @@ class Validator {
             this.showError(target);
             this.error.add(target);
         }
-        if (this.checkbox[0].checked) {
-            this.buttonForm.disabled = false;
-        } else {
-            this.buttonForm.disabled = true;
-            if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {
-                return;
+
+        if (this.personalData) {
+            if (this.checkbox[0].checked) {
+                this.buttonForm.disabled = false;
+            } else {
+                this.buttonForm.disabled = true;
+                if ( this.personalData.nextElementSibling &&  this.personalData.nextElementSibling.classList.contains('validator-error2')) {
+                    return;
+                }
+                const errorDiv = document.createElement('div');
+                errorDiv.textContent = 'Подтвердите согласие на отправку';
+                errorDiv.classList.add('validator-error2');
+                this.personalData.insertAdjacentElement('afterend', errorDiv);
             }
-            const errorDiv = document.createElement('div');
-            errorDiv.textContent = 'Подтвердите согласие на отправку';
-            errorDiv.classList.add('validator-error2');
-            this.form.querySelector('.personal-data').insertAdjacentElement('afterend', errorDiv);
         }
         if (this.error.size > 0) {
             this.buttonForm.disabled = true;
@@ -86,8 +93,10 @@ class Validator {
         if (elem.nextElementSibling && elem.nextElementSibling.classList.contains('validator-error')) {
             elem.nextElementSibling.remove();
         }
-        if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {
-            this.form.querySelector('.personal-data').nextElementSibling.remove();
+        if (this.personalData) {
+            if (this.form.querySelector('.personal-data').nextElementSibling && this.form.querySelector('.personal-data').nextElementSibling.classList.contains('validator-error2')) {
+                this.form.querySelector('.personal-data').nextElementSibling.remove();
+            }
         }
     }
 
