@@ -3,7 +3,7 @@ class Validator {
         this.form = document.querySelector(selector);
         this.pattern = pattern;
         this.method = method;
-        this.elementsForm = [...this.form.elements].filter(item => item.tagName.toLowerCase() !== 'button' && item.type !== 'button' && item.getAttribute('type') !== 'radio');
+        this.elementsForm = [...this.form.elements].filter(item => item.tagName.toLowerCase() !== 'button' && item.type !== 'button' && item.getAttribute('type') !== 'radio' && item.getAttribute('name') !== 'name1');
         this.buttonForm = this.form.querySelector('.btn');
         this.personalData = this.form.querySelector('.personal-data');
         if (this.personalData) {
