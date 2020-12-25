@@ -57,6 +57,8 @@ const toggleMenu = () => {
     window.addEventListener('resize', function() {
         if (document.documentElement.clientWidth > 767) {
             document.querySelector('.top-menu').style.position = 'static';
+        } else if (pageYOffset > 240 && document.documentElement.clientWidth < 768) {
+            document.querySelector('.top-menu').style.position = 'fixed';
         }
     });
 };
