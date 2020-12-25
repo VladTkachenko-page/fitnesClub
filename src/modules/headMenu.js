@@ -11,7 +11,7 @@ const headMenu = () => {
       }
     });
     window.addEventListener('scroll', function() {
-      if (pageYOffset > document.querySelector('#clubs').offsetTop ) {
+      if (pageYOffset > document.querySelector('.header-main').offsetHeight) {
           document.getElementById('totop').style.display = 'block';
       } else {
           document.getElementById('totop').style.display = 'none';
