@@ -10,6 +10,13 @@ const headMenu = () => {
         headList[0].style.display = 'block';
       }
     });
+    window.addEventListener('scroll', function() {
+      if (pageYOffset > document.querySelector('#clubs').offsetTop ) {
+          document.getElementById('totop').style.display = 'block';
+      } else {
+          document.getElementById('totop').style.display = 'none';
+      }
+  });
 }
 
 export default headMenu;

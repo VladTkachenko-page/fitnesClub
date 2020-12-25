@@ -53,7 +53,12 @@ const toggleMenu = () => {
         } else {
             document.querySelector('.top-menu').style.position = 'static';
         }
-      });
+    });
+    window.addEventListener('resize', function() {
+        if (document.documentElement.clientWidth > 767) {
+            document.querySelector('.top-menu').style.position = 'static';
+        }
+    });
 };
 
 export default toggleMenu;

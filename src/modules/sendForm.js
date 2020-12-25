@@ -18,7 +18,7 @@ const sendForm = () => {
   for (let i = 0; i < inputAll.length; i++) {
       if (inputAll[i].name === 'name') {
           inputAll[i].addEventListener('input', () => {
-              inputAll[i].value = inputAll[i].value.replace(/[^а-яА-Я,;. ]/, '');
+              inputAll[i].value = inputAll[i].value.replace(/[^а-яА-ЯёЁ ]/, '');
           });
       } else if (inputAll[i].name === 'phone') {
           inputAll[i].addEventListener('input', () => {
@@ -62,6 +62,9 @@ const sendForm = () => {
   const successPopUpSend = () => {
     const popUpThanks = document.getElementById('thanks');
     popUpThanks.getElementsByTagName('p')[0].textContent = successMessage;
+    setTimeout(() => {
+        popUpThanks.style.display = 'none';
+    }, 5000)
   }
   const errorPopUpSend = () => {
     const popUpThanks = document.getElementById('thanks');

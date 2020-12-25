@@ -15,7 +15,7 @@ class Validator {
         
         this.applyStyle();
         this.setPattern();
-        this.elementsForm.forEach(elem => elem.addEventListener('change', this.chekIt.bind(this)));
+        this.elementsForm.forEach(elem => elem.addEventListener('input', this.chekIt.bind(this)));
         this.form.addEventListener('submit', e => {
             this.elementsForm.forEach(elem => this.chekIt({ target: elem }));
         });
@@ -56,11 +56,17 @@ class Validator {
         if (this.personalData) {
             if (this.checkbox[0].checked) {
                 this.buttonForm.disabled = false;
+                this.checkbox[0].classList.remove('error');
+                this.checkbox[0].classList.add('success');
+                this.error.delete(this.checkbox[0]);
             } else {
+                this.error.add(this.checkbox[0]);
                 this.buttonForm.disabled = true;
                 if ( this.personalData.nextElementSibling &&  this.personalData.nextElementSibling.classList.contains('validator-error2')) {
                     return;
                 }
+                this.checkbox[0].classList.remove('success');
+                this.checkbox[0].classList.add('error');
                 const errorDiv = document.createElement('div');
                 errorDiv.textContent = 'Подтвердите согласие на отправку';
                 errorDiv.classList.add('validator-error2');
@@ -129,9 +135,6 @@ class Validator {
     setPattern() {
         if (!this.pattern.phone) {
             this.pattern.phone = /^\+[78]([-()]*\d){10}$/;
-        }
-        if (!this.pattern.email) {
-            this.pattern.email = /^\w+@\w+\.\w{2,}$/;
         }
     }
 }
