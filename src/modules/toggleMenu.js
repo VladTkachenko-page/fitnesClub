@@ -7,26 +7,18 @@ const toggleMenu = () => {
     };
     
     document.addEventListener('click', event => {
-        let target = event.target,
-        targetMenubtn = event.target,
-        targetMenu = event.target;
+        let target = event.target;
         if (target.closest('.close-menu-btn>img')) {
             handlerMenu();
-        } else {
-            target = target.closest('.popup-menu>ul>li>a');
-            if (target) {
-                handlerMenu();
-            }
-        }
-        targetMenubtn = targetMenubtn.closest('.menu-button>img');
-        if (targetMenubtn) {
+        } else if (target.closest('.popup-menu>ul>li>a')){
             handlerMenu();
-        } else {
-            targetMenu = targetMenu.closest('.popup-menu');
-            if (!targetMenu) {
+        }
+        if (target.closest('.menu-button>img')) {
+            handlerMenu();
+        } else if (!target.closest('.popup-menu')) {
                 menu.classList.remove('popup-menu-active');
             }
-        }
+        
     });
     const smoothScroll = item => {
         let link = item.getAttribute('href').substring(1);
