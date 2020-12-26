@@ -29,11 +29,14 @@ const toggleMenu = () => {
         }
     });
     const smoothScroll = item => {
-        const link = item.getAttribute('href').substring(1);
-
+        let link = item.getAttribute('href').substring(1);
+        
+        if (link.includes('#')){
+            link = item.getAttribute('href');
+            document.location.href = link;
+        }
         const scrollTarget = document.getElementById(link),
             elementPosition = scrollTarget.getBoundingClientRect().top;
-
         window.scrollBy({
             top: elementPosition,
             behavior: 'smooth'

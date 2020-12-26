@@ -6,20 +6,12 @@ const mainSlider = () => {
       interval;
 
   const autoPlaySlide = () => {
-      prevSlide(slide, currentSlide, 'none');
+      slide[currentSlide].style.display = 'none';
       currentSlide++;
       if (currentSlide >= slide.length) {
           currentSlide = 0;
       }
-      nextSlide(slide, currentSlide, 'flex');
-  };
-
-  const prevSlide = (elem, index, strAttr) => {
-    elem[index].style.display = strAttr;
-  };
-
-  const nextSlide = (elem, index, strAttr) => {
-    elem[index].style.display = strAttr;
+      slide[currentSlide].style.display = 'flex';
   };
 
   const startSlide = (time = 3000) => {
